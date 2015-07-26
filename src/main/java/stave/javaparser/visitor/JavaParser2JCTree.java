@@ -76,6 +76,7 @@ import com.sun.tools.javac.code.Flags;
 import com.sun.tools.javac.code.Symbol.*;
 import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.code.Type.ClassType;
+import com.sun.tools.javac.code.TypeTag;
 import com.sun.tools.javac.code.TypeTags;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.JCTree.*;
@@ -224,7 +225,7 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
    @Override
       public JCTree visit(final AssignExpr n, final Object arg) {
          // ARG0: int opcode 
-         int arg0;
+         Tag arg0;
 
          // ARG1: JCExpression lhs
          JCExpression arg1 = (JCExpression) n.getTarget().accept(this, arg);
@@ -240,18 +241,18 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
 
          // Cases for operation followed by assignment
          switch(n.getOperator()) {
-            case plus:           arg0 = JCTree.PLUS_ASG; break;
-            case minus:          arg0 = JCTree.MINUS_ASG; break;
-            case star:           arg0 = JCTree.MUL_ASG; break;
-            case slash:          arg0 = JCTree.DIV_ASG; break;
-            case and:            arg0 = JCTree.BITAND_ASG; break;
-            case or:             arg0 = JCTree.BITOR_ASG; break;
-            case xor:            arg0 = JCTree.BITXOR_ASG; break;
-            case rem:            arg0 = JCTree.MOD_ASG; break;
-            case lShift:         arg0 = JCTree.SL_ASG; break;
-            case rSignedShift:   arg0 = JCTree.SR_ASG; break;
-            case rUnsignedShift: arg0 = JCTree.USR_ASG; break;
-            default:             arg0 = JCTree.ERRONEOUS;
+            case plus:           arg0 = JCTree.Tag.PLUS_ASG; break;
+            case minus:          arg0 = JCTree.Tag.MINUS_ASG; break;
+            case star:           arg0 = JCTree.Tag.MUL_ASG; break;
+            case slash:          arg0 = JCTree.Tag.DIV_ASG; break;
+            case and:            arg0 = JCTree.Tag.BITAND_ASG; break;
+            case or:             arg0 = JCTree.Tag.BITOR_ASG; break;
+            case xor:            arg0 = JCTree.Tag.BITXOR_ASG; break;
+            case rem:            arg0 = JCTree.Tag.MOD_ASG; break;
+            case lShift:         arg0 = JCTree.Tag.SL_ASG; break;
+            case rSignedShift:   arg0 = JCTree.Tag.SR_ASG; break;
+            case rUnsignedShift: arg0 = JCTree.Tag.USR_ASG; break;
+            default:             arg0 = JCTree.Tag.ERRONEOUS;
          }
 
 	 return new AJCAssignOp( make.Assignop( arg0, arg1, arg2), ( (n.getComment()!=null)?n.getComment().getContent():null ) );
@@ -260,29 +261,29 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
    @Override
       public JCTree visit(final BinaryExpr n, final Object arg) {
          //ARG0: int opcode
-         int arg0;
+         Tag arg0;
 
          switch(n.getOperator()) {
-            case or:             arg0 = JCTree.OR; break;
-            case and:            arg0 = JCTree.AND; break;
-            case binOr:          arg0 = JCTree.BITOR; break;
-            case binAnd:         arg0 = JCTree.BITAND; break;
-            case xor:            arg0 = JCTree.BITXOR; break;
-            case equals:         arg0 = JCTree.EQ; break;
-            case notEquals:      arg0 = JCTree.NE; break;
-            case less:           arg0 = JCTree.LT; break;
-            case greater:        arg0 = JCTree.GT; break;
-            case lessEquals:     arg0 = JCTree.LE; break;
-            case greaterEquals:  arg0 = JCTree.GE; break;
-            case lShift:         arg0 = JCTree.SL; break;
-            case rSignedShift:   arg0 = JCTree.SR; break;
-            case rUnsignedShift: arg0 = JCTree.USR; break;
-            case plus:           arg0 = JCTree.PLUS; break;
-            case minus:          arg0 = JCTree.MINUS; break;
-            case times:          arg0 = JCTree.MUL; break;
-            case divide:         arg0 = JCTree.DIV; break;
-            case remainder:      arg0 = JCTree.MOD; break;
-            default:             arg0 = JCTree.ERRONEOUS;
+            case or:             arg0 = JCTree.Tag.OR; break;
+            case and:            arg0 = JCTree.Tag.AND; break;
+            case binOr:          arg0 = JCTree.Tag.BITOR; break;
+            case binAnd:         arg0 = JCTree.Tag.BITAND; break;
+            case xor:            arg0 = JCTree.Tag.BITXOR; break;
+            case equals:         arg0 = JCTree.Tag.EQ; break;
+            case notEquals:      arg0 = JCTree.Tag.NE; break;
+            case less:           arg0 = JCTree.Tag.LT; break;
+            case greater:        arg0 = JCTree.Tag.GT; break;
+            case lessEquals:     arg0 = JCTree.Tag.LE; break;
+            case greaterEquals:  arg0 = JCTree.Tag.GE; break;
+            case lShift:         arg0 = JCTree.Tag.SL; break;
+            case rSignedShift:   arg0 = JCTree.Tag.SR; break;
+            case rUnsignedShift: arg0 = JCTree.Tag.USR; break;
+            case plus:           arg0 = JCTree.Tag.PLUS; break;
+            case minus:          arg0 = JCTree.Tag.MINUS; break;
+            case times:          arg0 = JCTree.Tag.MUL; break;
+            case divide:         arg0 = JCTree.Tag.DIV; break;
+            case remainder:      arg0 = JCTree.Tag.MOD; break;
+            default:             arg0 = JCTree.Tag.ERRONEOUS;
          }
 
          //ARG1: JCExpression lhs
@@ -373,7 +374,7 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
 
    /**
    * @param ljpmodif modifiers in JavaParser style
-   * @param lsouce set of flags already set
+   * @param lsource set of flags already set
    * @return Flags previously set, plus the ones provided as the first argument
    */
    private long setJCTreeModifiers( int ljpmodif, long lsource) {
@@ -1214,7 +1215,7 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
    @Override
       public JCTree visit(final NullLiteralExpr n, final Object arg) {
          //ARG0: int tag 
-         int arg0 = TypeTags.BOT;
+         TypeTag arg0 = TypeTag.BOT;
          
          //ARG1: Object value
          Object arg1 = null;
@@ -1364,17 +1365,17 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
          //ARG0 Type t
          // t.tag is an int that contains the type code,
          // which in turn is defined at code/TypeTags
-         int arg0;
+         TypeTag arg0;
          switch (n.getType()) {
-            case Boolean: arg0 = TypeTags.BOOLEAN; break;
-            case Char:    arg0 = TypeTags.CHAR; break;
-            case Byte:    arg0 = TypeTags.BYTE; break;
-            case Short:   arg0 = TypeTags.SHORT; break;
-            case Int:     arg0 = TypeTags.INT; break;
-            case Long:    arg0 = TypeTags.LONG; break;
-            case Float:   arg0 = TypeTags.FLOAT; break;
-            case Double:  arg0 = TypeTags.DOUBLE; break;
-            default:      arg0 = TypeTags.UNKNOWN; break;
+            case Boolean: arg0 = TypeTag.BOOLEAN; break;
+            case Char:    arg0 = TypeTag.CHAR; break;
+            case Byte:    arg0 = TypeTag.BYTE; break;
+            case Short:   arg0 = TypeTag.SHORT; break;
+            case Int:     arg0 = TypeTag.INT; break;
+            case Long:    arg0 = TypeTag.LONG; break;
+            case Float:   arg0 = TypeTag.FLOAT; break;
+            case Double:  arg0 = TypeTag.DOUBLE; break;
+            default:      arg0 = TypeTag.UNKNOWN; break;
          }
 
 	 return new AJCPrimitiveTypeTree( make.TypeIdent( arg0), ( (n.getComment()!=null)?n.getComment().getContent():null ) );
@@ -1589,17 +1590,17 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
    @Override
       public JCTree visit(final UnaryExpr n, final Object arg) {
          // ARG0: int opcode
-	 int arg0;
+	 Tag arg0;
          switch( n.getOperator() ) {
-            case positive:     arg0 = JCTree.POS; break;
-            case negative:     arg0 = JCTree.NEG; break;
-            case preIncrement: arg0 = JCTree.PREINC; break;
-            case preDecrement: arg0 = JCTree.PREDEC; break;
-            case not:          arg0 = JCTree.NOT; break;
-            case inverse:      arg0 = JCTree.COMPL; break;
-            case posIncrement: arg0 = JCTree.POSTINC; break;
-            case posDecrement: arg0 = JCTree.POSTDEC; break;
-            default:           arg0 = JCTree.ERRONEOUS;
+            case positive:     arg0 = JCTree.Tag.POS; break;
+            case negative:     arg0 = JCTree.Tag.NEG; break;
+            case preIncrement: arg0 = JCTree.Tag.PREINC; break;
+            case preDecrement: arg0 = JCTree.Tag.PREDEC; break;
+            case not:          arg0 = JCTree.Tag.NOT; break;
+            case inverse:      arg0 = JCTree.Tag.COMPL; break;
+            case posIncrement: arg0 = JCTree.Tag.POSTINC; break;
+            case posDecrement: arg0 = JCTree.Tag.POSTDEC; break;
+            default:           arg0 = JCTree.Tag.ERRONEOUS;
          }
 
          // ARG1: JCExpression arg
@@ -1613,7 +1614,7 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
          //ARG0 int
          // An unknown type is a primitive type idetified
          // by label defined in code/TypeTags
-         int arg0 = TypeTags.UNKNOWN;
+         int arg0 = TypeTag.UNKNOWN;
 
 	 return new AJCPrimitiveTypeTree( make.TypeIdent(arg0), ( (n.getComment()!=null)?n.getComment().getContent():null ) );
       }
@@ -1680,7 +1681,7 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
       public JCTree visit(final VoidType n, final Object arg) {
          //ARG0: int
          // Void is treated as primitive type in JCTree
-         int arg0 = TypeTags.VOID;
+         TypeTag arg0 = TypeTag.VOID;
 
 	 return new AJCPrimitiveTypeTree( make.TypeIdent( arg0), ( (n.getComment()!=null)?n.getComment().getContent():null ) );
       }

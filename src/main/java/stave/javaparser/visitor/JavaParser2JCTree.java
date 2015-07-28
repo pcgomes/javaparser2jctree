@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2007-2010 Julio Vilmar Gesser.
  * Copyright (C) 2011, 2013-2015 The JavaParser Team.
- * Editied by: Pedro de Carvalho Gomes
+ * Edited by: Pedro de Carvalho Gomes
  *
  * This file is part of JavaParser.
  *
@@ -77,7 +77,6 @@ import com.sun.tools.javac.code.Symbol.*;
 import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.code.Type.ClassType;
 import com.sun.tools.javac.code.TypeTag;
-import com.sun.tools.javac.code.TypeTags;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.JCTree.*;
 import com.sun.tools.javac.tree.TreeMaker;
@@ -1526,8 +1525,8 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
 
    @Override
       public JCTree visit(final ThrowStmt n, final Object arg) {
-	 // ARG0: JCTree expr
-	 JCTree arg0 = n.getExpr().accept(this, arg);
+	 // ARG0: JCExpression expr
+	 JCExpression arg0 = (JCExpression) n.getExpr().accept(this, arg);
 
 	 return new AJCThrow( make.Throw( arg0), ( (n.getComment()!=null)?n.getComment().getContent():null ) );
       }
@@ -1611,10 +1610,10 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
 
    @Override
       public JCTree visit(final UnknownType n, final Object arg) {
-         //ARG0 int
+         //ARG0 TypeTag 
          // An unknown type is a primitive type idetified
          // by label defined in code/TypeTags
-         int arg0 = TypeTag.UNKNOWN;
+         TypeTag arg0 = TypeTag.UNKNOWN;
 
 	 return new AJCPrimitiveTypeTree( make.TypeIdent(arg0), ( (n.getComment()!=null)?n.getComment().getContent():null ) );
       }

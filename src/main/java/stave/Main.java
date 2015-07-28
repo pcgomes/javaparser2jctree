@@ -12,6 +12,7 @@ import com.sun.tools.javac.main.JavaCompiler;
 import com.sun.tools.javac.main.JavaCompiler.*;
 import com.sun.tools.javac.file.JavacFileManager;
 import com.sun.tools.javac.comp.Enter;
+import com.sun.tools.javac.comp.CompileStates.CompileState;
 import com.sun.tools.javac.comp.MemberEnter;
 import com.sun.tools.javac.comp.Todo;
 import com.sun.tools.javac.tree.JCTree;
@@ -109,7 +110,7 @@ public class Main {
       JavaCompiler myjcompiler = new JavaCompiler(mycontext);
       JavaFileManager myfilemanager = mycontext.get(JavaFileManager.class);
       // Phase that Javac may go to: Setting code generation
-      myjcompiler.shouldStopPolicy = CompileState.GENERATE;
+      myjcompiler.shouldStopPolicyIfNoError = CompileState.GENERATE;
 
       // Table that stores the Java Compiler's ASTs
       List<JCCompilationUnit> ljctreelist = List.<JCCompilationUnit>nil();

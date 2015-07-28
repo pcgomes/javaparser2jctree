@@ -14,7 +14,7 @@ public class AJCUnary extends JCUnary implements JavaParserComments {
 
    public boolean hasComment() { return comment != null; }
 
-   public AJCUnary (int opcode, JCExpression arg) {
+   public AJCUnary (Tag opcode, JCExpression arg) {
       super( opcode, arg);
    }
    

@@ -14,12 +14,12 @@ public class AJCAnnotation extends JCAnnotation implements JavaParserComments {
 
    public boolean hasComment() { return comment != null; }
 
-   public AJCAnnotation (JCTree annotationType, List<JCExpression> args) {
-      super( annotationType, args);
+   public AJCAnnotation (Tag tag, JCTree annotationType, List<JCExpression> args) {
+      super( tag, annotationType, args);
    }
    
    public AJCAnnotation( JCAnnotation ltree) {
-      super( ltree.annotationType, ltree.args);
+      super( ltree.getTag(), ltree.annotationType, ltree.args);
    }
 
    public AJCAnnotation( JCAnnotation ltree, String lcomment) {

@@ -14,7 +14,7 @@ public class AJCThrow extends JCThrow implements JavaParserComments {
 
    public boolean hasComment() { return comment != null; }
 
-   public AJCThrow (JCTree expr) {
+   public AJCThrow ( JCExpression expr) {
       super( expr);
    }
    

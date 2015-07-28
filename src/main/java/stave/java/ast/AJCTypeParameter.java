@@ -15,11 +15,11 @@ public class AJCTypeParameter extends JCTypeParameter implements JavaParserComme
    public boolean hasComment() { return comment != null; }
 
    public AJCTypeParameter (Name name, List<JCExpression> bounds) {
-      super( name, bounds);
+      super( name, bounds, List.<JCAnnotation>nil() );
    }
-   
+
    public AJCTypeParameter( JCTypeParameter ltree) {
-      super( ltree.name, ltree.bounds);
+      super( ltree.name, ltree.bounds, ltree.annotations);
    }
 
    public AJCTypeParameter( JCTypeParameter ltree, String lcomment) {

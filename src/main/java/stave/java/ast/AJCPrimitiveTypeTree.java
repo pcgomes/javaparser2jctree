@@ -4,7 +4,7 @@ import com.sun.tools.javac.tree.JCTree.*;
 //import import com.sun.tools.javac.tree.JCTree;
 //import com.sun.tools.javac.util.List;
 //import com.sun.tools.javac.util.Name;
-//import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.code.TypeTag;
 //import com.sun.tools.javac.code.Scope.ImportScope;
 //import com.sun.tools.javac.code.BoundKind;
 
@@ -14,7 +14,7 @@ public class AJCPrimitiveTypeTree extends JCPrimitiveTypeTree implements JavaPar
 
    public boolean hasComment() { return comment != null; }
 
-   public AJCPrimitiveTypeTree(int typetag) {
+   public AJCPrimitiveTypeTree(TypeTag typetag) {
       super( typetag);
    }
    

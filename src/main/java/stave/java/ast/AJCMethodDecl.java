@@ -18,16 +18,17 @@ public class AJCMethodDecl extends JCMethodDecl implements JavaParserComments {
                   Name name,
                   JCExpression restype,
                   List<JCTypeParameter> typarams,
+                  JCVariableDecl recvparam,
                   List<JCVariableDecl> params,
                   List<JCExpression> thrown,
                   JCBlock body,
                   JCExpression defaultValue,
                   MethodSymbol sym) {
-      super(mods, name, restype, typarams, params, thrown, body, defaultValue, sym);
+      super(mods, name, restype, typarams, recvparam, params, thrown, body, defaultValue, sym);
    }
    
    public AJCMethodDecl( JCMethodDecl ltree) {
-      super(ltree.mods, ltree.name, ltree.restype, ltree.typarams, ltree.params, ltree.thrown, ltree.body, ltree.defaultValue, ltree.sym);
+      super(ltree.mods, ltree.name, ltree.restype, ltree.typarams, ltree.recvparam, ltree.params, ltree.thrown, ltree.body, ltree.defaultValue, ltree.sym);
    }
 
    public AJCMethodDecl( JCMethodDecl ltree, String lcomment) {

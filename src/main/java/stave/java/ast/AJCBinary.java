@@ -14,7 +14,7 @@ public class AJCBinary extends JCBinary implements JavaParserComments {
 
    public boolean hasComment() { return comment != null; }
 
-   public AJCBinary (int opcode, JCExpression lhs, JCExpression rhs, Symbol operator) {
+   public AJCBinary (Tag opcode, JCExpression lhs, JCExpression rhs, Symbol operator) {
       super( opcode, lhs, rhs, operator);
    }
    

@@ -14,7 +14,7 @@ public class AJCAssignOp extends JCAssignOp implements JavaParserComments {
 
    public boolean hasComment() { return comment != null; }
 
-   public AJCAssignOp (int opcode, JCTree lhs, JCTree rhs, Symbol operator) {
+   public AJCAssignOp (Tag opcode, JCTree lhs, JCTree rhs, Symbol operator) {
       super( opcode, lhs, rhs, operator);
    }
    

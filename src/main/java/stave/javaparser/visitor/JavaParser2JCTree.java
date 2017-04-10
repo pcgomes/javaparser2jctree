@@ -840,8 +840,8 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
          // 2 - The variable doesn't have a comment yet 
          // 3 - It is a variable declaration
          if ( (n.getComment()!=null) &&
-              (!((AJCVariableDecl)mystmt).hasComment()) &&
-              (mystmt instanceof AJCVariableDecl) ) {
+              (mystmt instanceof AJCVariableDecl) &&
+              (!((AJCVariableDecl)mystmt).hasComment()) ) {
 
             ((AJCVariableDecl)mystmt).setComment(n.getComment().getContent());
          }

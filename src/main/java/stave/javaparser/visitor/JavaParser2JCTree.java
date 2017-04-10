@@ -1296,7 +1296,8 @@ public class JavaParser2JCTree implements GenericVisitor<JCTree, Object> {
       public JCTree visit(final Parameter n, final Object arg) {
          //ARG0: JCModifiers mods
          JCModifiers arg0;
-         long jcmodifier = setJCTreeModifiers( n.getModifiers(), 0);
+         // TODO - Forcing flag below. Check if should use make.Param
+         long jcmodifier = setJCTreeModifiers( n.getModifiers(), 0) | Flags.PARAMETER;
          arg0 = new AJCModifiers( make.Modifiers( jcmodifier), null);
 
          //ARG1: Name name

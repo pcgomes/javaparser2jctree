@@ -1,38 +1,41 @@
 package stave.java.ast;
 
-import com.sun.tools.javac.tree.JCTree.*;
+import com.sun.tools.javac.code.TypeTag;
+import com.sun.tools.javac.tree.JCTree.JCLiteral;
+
 //import import com.sun.tools.javac.tree.JCTree;
 //import com.sun.tools.javac.util.List;
 //import com.sun.tools.javac.util.Name;
-import com.sun.tools.javac.code.TypeTag;
 //import com.sun.tools.javac.code.Scope.ImportScope;
 //import com.sun.tools.javac.code.BoundKind;
 
 public class AJCLiteral extends JCLiteral implements JavaParserComments {
 
-   public String comment;
+    public String comment;
 
-   public boolean hasComment() { return comment != null; }
+    public AJCLiteral(TypeTag typetag, Object value) {
+        super(typetag, value);
+    }
 
-   public AJCLiteral (TypeTag typetag, Object value) {
-      super( typetag, value);
-   }
-   
-   public AJCLiteral( JCLiteral ltree) {
-      super( ltree.typetag, ltree.value);
-   }
+    public AJCLiteral(JCLiteral ltree) {
+        super(ltree.typetag, ltree.value);
+    }
 
-   public AJCLiteral( JCLiteral ltree, String lcomment) {
-      this(ltree);
-      setComment(lcomment);
-   }
+    public AJCLiteral(JCLiteral ltree, String lcomment) {
+        this(ltree);
+        setComment(lcomment);
+    }
 
-   public String getComment() {
-      return comment;
-   }
+    public boolean hasComment() {
+        return comment != null;
+    }
 
-   public void setComment(String lcomment) {
-      comment = lcomment;
-   }
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String lcomment) {
+        comment = lcomment;
+    }
 }
 

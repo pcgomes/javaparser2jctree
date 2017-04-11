@@ -1,7 +1,7 @@
 package stave.java.ast;
 
-import com.sun.tools.javac.tree.JCTree.*;
 import com.sun.tools.javac.tree.JCTree;
+import com.sun.tools.javac.tree.JCTree.JCWildcard;
 //import com.sun.tools.javac.util.List;
 //import com.sun.tools.javac.util.Name;
 //import com.sun.tools.javac.code.Symbol;
@@ -10,29 +10,31 @@ import com.sun.tools.javac.tree.JCTree;
 
 public class AJCWildcard extends JCWildcard implements JavaParserComments {
 
-   public String comment;
+    public String comment;
 
-   public boolean hasComment() { return comment != null; }
+    public AJCWildcard(TypeBoundKind kind, JCTree inner) {
+        super(kind, inner);
+    }
 
-   public AJCWildcard (TypeBoundKind kind, JCTree inner) {
-      super( kind, inner);
-   }
-   
-   public AJCWildcard( JCWildcard ltree) {
-      super( ltree.kind, ltree.inner);
-   }
+    public AJCWildcard(JCWildcard ltree) {
+        super(ltree.kind, ltree.inner);
+    }
 
-   public AJCWildcard( JCWildcard ltree, String lcomment) {
-      this(ltree);
-      setComment(lcomment);
-   }
+    public AJCWildcard(JCWildcard ltree, String lcomment) {
+        this(ltree);
+        setComment(lcomment);
+    }
 
-   public String getComment() {
-      return comment;
-   }
+    public boolean hasComment() {
+        return comment != null;
+    }
 
-   public void setComment(String lcomment) {
-      comment = lcomment;
-   }
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String lcomment) {
+        comment = lcomment;
+    }
 }
 

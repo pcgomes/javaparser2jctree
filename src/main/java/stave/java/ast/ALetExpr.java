@@ -1,7 +1,7 @@
 package stave.java.ast;
 
-import com.sun.tools.javac.tree.JCTree.*;
 import com.sun.tools.javac.tree.JCTree;
+import com.sun.tools.javac.tree.JCTree.LetExpr;
 import com.sun.tools.javac.util.List;
 //import com.sun.tools.javac.util.Name;
 //import com.sun.tools.javac.code.Symbol;
@@ -10,29 +10,31 @@ import com.sun.tools.javac.util.List;
 
 public class ALetExpr extends LetExpr implements JavaParserComments {
 
-   public String comment;
+    public String comment;
 
-   public boolean hasComment() { return comment != null; }
+    public ALetExpr(List<JCVariableDecl> defs, JCTree expr) {
+        super(defs, expr);
+    }
 
-   public ALetExpr (List<JCVariableDecl> defs, JCTree expr) {
-      super( defs, expr);
-   }
-   
-   public ALetExpr( LetExpr ltree) {
-      super( ltree.defs, ltree.expr);
-   }
+    public ALetExpr(LetExpr ltree) {
+        super(ltree.defs, ltree.expr);
+    }
 
-   public ALetExpr( LetExpr ltree, String lcomment) {
-      this(ltree);
-      setComment(lcomment);
-   }
+    public ALetExpr(LetExpr ltree, String lcomment) {
+        this(ltree);
+        setComment(lcomment);
+    }
 
-   public String getComment() {
-      return comment;
-   }
+    public boolean hasComment() {
+        return comment != null;
+    }
 
-   public void setComment(String lcomment) {
-      comment = lcomment;
-   }
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String lcomment) {
+        comment = lcomment;
+    }
 }
 
